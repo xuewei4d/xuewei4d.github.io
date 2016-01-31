@@ -1,0 +1,17 @@
+---
+layout: post
+title: "GSoC Week 5"
+date: 2015-06-29T12:03:09-04:00
+comments: true
+categories: gsoc
+---
+
+The week 5 began with a discussion with whether we should deprecate ```params```. 
+I fixed some bugs in checking functions, random number generator and one of covariance updating methods. 
+In the following days, I completed the main functions of ```GaussianMixutre``` and all test cases, except 
+AIC, BIC and sampling functions. The tests are some kind of challenging, sine the current implementation
+in the master branch contains very old test cases imported from Weiss's implementation which is never 
+got improved. I simplified the test cases, and wrote more tests that are not covered by the current implementation,
+such as covariance estimation, ground truth parameter prediction, and other user-friendly warnings and errors.
+
+Next week, I will begin to code ```BayesianGaussianMixture```.

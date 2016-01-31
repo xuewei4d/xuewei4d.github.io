@@ -1,0 +1,29 @@
+---
+layout: post
+title: "GSoC Week 3"
+date: 2015-06-14T21:00:00-04:00
+comments: true
+categories: gsoc
+---
+
+
+The week 3 has a very exciting start. I finished the derivation of DPGMM, as well as the lower bound and the predictive probability 
+for each model.
+
+The difference between my derivation and the current document is that the current models assume a simpler approximation. The model defined in PRML is more accurate and provides more knobs. The two approximations both appear in the literature. Maybe we should do some experiments to decide which one is better.
+
+With regards to the new names of DPGMM and VBGMM, I think these two names are not suitable, just like someone calls SVM as SMO. Actually, the models are Bayesian GMM, Dirichlet Process Bayesian GMM (DPGMM is often used) respectively. Both of them are solved by variational inference. In other words, VBGMM is not a good name. The new names, I think, should have the meaning of 'Bayesian GMM solved by VB', 'DP(B)GMM solved by VB'.
+
+I also took a close look at the code base. The code is not maintained well. The problem I am going to address is as follows.
+
+* decouple some large functions, such as ```_fit```
+* use abstract class and inheritance to reduce code redundancy
+* numerical stability. It seems that whenever there is a numerical issue. The code always like to add EPS. I think in some place there is a better way to address the problem, such as normalization the extremely small variables earlier.
+* write updating functions for BayesianGaussianMixtureModel and DirichletProcessGaussianMixtureModel
+* provide methods that allow users to initialize the model before ```fit```  
+* correct kmeans initialization. It is weird when using kmean initialization, only means is initialized. The weights and covariances are initialized by averaging.
+* write several checking functions for the initialization data
+* [optional] add a partial_fit function for incremental / out-of-core fitting of (classical) GMM, for instance http://arxiv.org/abs/0712.4273 
+* [optional] ledoit_wolf covariance estimation
+
+The last days of this week I implemented the structure of new classes. ```_MixtureModelBase```, ```GaussianMixtureModel```, ```BayesianMixtureModel```, ```DirichletProcessMixtureModel```. It provides us a big picture of the classes I am going to implement. I am looking forward the feedback.

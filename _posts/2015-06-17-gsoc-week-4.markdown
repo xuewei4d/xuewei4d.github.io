@@ -1,0 +1,38 @@
+---
+layout: post
+title: "GSoC Week 4: Progress Report"
+date: 2015-06-17T16:20:04-04:00
+comments: true
+categories: gsoc
+---
+Updated on July 1.
+Updated on Jun 24.
+
+Here is the task check-list.
+
+1. [x] Completes [derivation report](https://www.dropbox.com/s/8hlbb7dlwllwcry/VBGMM.pdf?dl=0).
+2. [x] Adds new classes. One abstract class ```_BasesMixture```. Three derived classes ```GaussianMixture```, ```BayesianGaussianMixture```, ```DirichletProcessGaussianMixture```
+3. [x] Removes numerical stability fixes for HMM. It seems that whenever there is a numerical issue, the code always adds 10*EPS in the computation. I think in some cases there is a better way to address the problem, such as normalization the extremely small variables earlier, or we just simply remove ```10*EPS``` which is only for HMM.
+4. [ ] Writes updating functions for ```BayesianGaussianMixtureModel``` and ```DirichletProcessGaussianMixtureModel``` according to the report.
+5. [x] Provides methods that allow users to initialize the model with user-provided data
+6. [x] Corrects kmeans initialization. It is weird when using kmeans initialization, only means is initialized. The weights and covariances are initialized by averaging.
+7. [x] Writes several checking functions for the initialization data
+8. [x] Adjusts the verbose messages. When ```verbose>1```, it display log-likelihood and time used in the same line of the message ```Iteration x```
+9. [x] Simplify ```fit_predict```
+10. [x] Adds warning for ```params!='wmc'```
+11. [ ] Studies and contrasts the convergence of classical MLE / EM GMM with Bayesian GMM against the number of samples and the number of components
+12. [ ] Friendly warning and error messages, or automatically addressing if possible (e.g. random re-init of singular components)
+13. [ ] Examples that shows how models can over-fit by comparing likelihood on training and validation sets (normalized by
+the number of samples). For instance extend the BIC score example with a cross-validated likelihood plot
+14. [ ] Testing on 1-D dimensions
+15. [ ] Testing on Degenerating cases
+16. [ ] AIC, BIC for VBGMM DPGMM
+17. [ ] Old faithful geyser data set
+18. [ ] Rename score_samples
+19. [ ] Add integrating test
+20. [optional] add a partial_fit function for incremental / out-of-core fitting of (classical) GMM, for instance http://arxiv.org/abs/0712.4273 
+21. [optional] ledoit_wolf covariance estimation
+
+The most important progress I have done is the derivation report which include the updating functions, log-probability, and predictive distribution for all three models, and the implementation of the base class. Compared with the current scikit-learn math derivation documents, my report is consistent to PRML. It clearly depicts the updating functions of three models share a lot of patterns. We could abstract common functions into the abstract base class ```_MixtureBase```. The three models could inherit it and override the updating methods.
+
+Next week I will finish the ```GaussianMixture``` model with necessary testing functions.
