@@ -39,7 +39,7 @@ timezone:    America/New_York
 future:      true
 highlighter: pygments
 markdown:    kramdown
-gems:
+plugins:
   - jekyll-sitemap
 sass:
   sass_dir: _sass
@@ -51,7 +51,7 @@ permalink:   /:categories/:title/
 # Amount of post to show on home page
 paginate: 5
 
-kramdown:
+kramdown.coderay:
   auto_ids: true
   footnote_nr: 1
   entity_output: as_char
@@ -59,11 +59,11 @@ kramdown:
   syntax_highlighter: true
 
   coderay:
-    coderay_line_numbers: nil
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
+    line_numbers: nil
+    line_numbers_start: 1
+    tab_width: 4
+    bold_every: 10
+    css: class
 
 # Octopress
 # Default extensions
@@ -78,6 +78,6 @@ titlecase: true
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile.lock", "README.md", "LICENSE", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
 
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 paginate: 5
 paginate_path: "page:num"
